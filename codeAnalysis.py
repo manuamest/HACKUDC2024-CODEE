@@ -281,7 +281,7 @@ def generate_report(metrics):
     os.chdir("/home/manuamest/Documentos/HACKATON/HACKUDCCODEE")
 
     # GUARDAR EN GITHUB
-    #os.chdir("..")
+    os.chdir("..")
 
     # Escribir el código HTML en un archivo
     with open("index.html", "w") as f:
@@ -292,10 +292,10 @@ def run_codee_analysis():
         # Cambiar al directorio donde se encuentra el proyecto mbedtls
 
         # EN LOCAL
-        os.chdir("/home/manuamest/Descargas/mbedtls-development")
+        #os.chdir("/home/manuamest/Descargas/mbedtls-development")
 
         # EN GITHUB
-        #os.chdir("./mbedtls-development")
+        os.chdir("./mbedtls")
         
         # Ejecutar los comandos previos
         subprocess.run(["cmake", "-DCMAKE_EXPORT_COMPILE_COMMANDS=On", "."])
@@ -304,12 +304,12 @@ def run_codee_analysis():
         # EJECUCION LOCAL
         #output = subprocess.check_output("/home/manuamest/Documentos/HACKATON/codee-2024.1.1-linux-x86_64/bin/pwreport --config compile_commands.json library/*.c --json", shell=True)
         #output = subprocess.check_output("/home/manuamest/Documentos/HACKATON/codee-2024.1.1-linux-x86_64/bin/pwreport --config compile_commands.json tests/*.c --json", shell=True)
-        output = subprocess.check_output("/home/manuamest/Documentos/HACKATON/codee-2024.1.1-linux-x86_64/bin/pwreport --config compile_commands.json programs/fuzz/*.c --json", shell=True)
+        #output = subprocess.check_output("/home/manuamest/Documentos/HACKATON/codee-2024.1.1-linux-x86_64/bin/pwreport --config compile_commands.json programs/fuzz/*.c --json", shell=True)
 
         # EJECUCION EN GITHUB
         #output = subprocess.check_output("./codee-2024.1.1-linux-x86_64/bin/pwreport --config compile_commands.json library/*.c --json", shell=True)
         #output = subprocess.check_output("./codee-2024.1.1-linux-x86_64/bin/pwreport --config compile_commands.json tests/*.c --json", shell=True)
-        #output = subprocess.check_output("./codee-2024.1.1-linux-x86_64/bin/pwreport --config compile_commands.json programs/fuzz/*.c --json", shell=True)
+        output = subprocess.check_output("./codee-2024.1.1-linux-x86_64/bin/pwreport --config compile_commands.json programs/fuzz/*.c --json", shell=True)
 
         output_variable = output.decode("utf-8")
         return output_variable
