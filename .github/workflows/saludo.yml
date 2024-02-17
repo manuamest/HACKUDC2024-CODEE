@@ -22,7 +22,7 @@ jobs:
           username: ${{ secrets.MAIL_MAIL }}
           password: ${{ secrets.MAIL_PASS }}
           subject: Reporte Codee
-          to: ${{ secrets.DEST_MAIL }},${{ secrets.MAIL_M_DEST }}
+          to: ${{ secrets.DEST_MAIL }}
           from: ${{ secrets.MAIL_MAIL }}
           body: Reporte adjunto de codee
           attachments: report.html
