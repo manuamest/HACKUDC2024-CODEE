@@ -97,7 +97,7 @@ def generate_report(metrics):
     # Convertir la imagen en base64
     img_str_1 = "data:image/png;base64," + base64.b64encode(image_png).decode()
 
-    # Crear un mapa de colores personalizado--------------------------------------------------------------------------------------
+    # Crear un mapa de colores personalizado
     colors = ['#FF47FF', '#9747FF']  # Morado a rosa
     cmap = LinearSegmentedColormap.from_list('custom', colors)
 
@@ -135,7 +135,7 @@ def generate_report(metrics):
     image_png = buffer.getvalue()
     buffer.close()
 
-    # Convertir la imagen en base64-----------------------------------------------------------------------------------------------
+    # Convertir la imagen en base64
     img_str_2 = "data:image/png;base64," + base64.b64encode(image_png).decode()
 
     # Obtener los datos de checks y costos

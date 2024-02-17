@@ -62,7 +62,7 @@ def generate_report(metrics):
     file_checks = [metrics[0][file]['# checks'] for file in files]
 
     plt.figure(figsize=(8, 6))
-    sns.heatmap([file_checks], annot=True, xticklabels=files, yticklabels=False, cmap=cmap, annot_kws={"color": "white"})
+    sns.heatmap([file_checks], annot=True, xticklabels=files, yticklabels=False, cmap=cmap, annot_kws={"color": "white"}, text='white')
 
     # Cambiar el color del fondo de los ejes
     plt.gca().set_facecolor('#2E2E2E')
