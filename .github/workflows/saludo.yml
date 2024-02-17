@@ -15,14 +15,14 @@ jobs:
       - name: Send mail
         uses: dawidd6/action-send-mail@v3
         with:
-          connection_url: smtps://chesterhomey@gmail.com:${{ secrets.GMAIL_APP_PASSWORD }}@smtp.gmail.com:465
-          server_address: smtp.gmail.com
-          server_port: 465
-          secure: true
-          username: chesterhomey@gmail.com
-          password: ${{ secrets.GMAIL_APP_PASSWORD }}
-          subject: Archivo adjunto desde GitHub
-          to: chesterhomey@gmail.com
-          from: "Tu Nombre <chesterhomey@gmail.com>"
-          body: Adjunto encontrarás el archivo que se encuentra en el repositorio.
+          #connection_url: ${{ secrets.MAIL_CONNECTION }}
+          server_address: smtp-relay.brevo.com
+          server_port: 587
+          secure: false
+          username: ${{ secrets.MAIL_MAIL }}
+          password: ${{ secrets.MAIL_PASS }}
+          subject: Reporte Codee
+          to: ${{ secrets.DEST_MAIL }}
+          from: ${{ secrets.MAIL_MAIL }}
+          body: Reporte adjunto de codee
           attachments: report.html
