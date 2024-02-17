@@ -301,7 +301,7 @@ def run_codee_analysis():
         # LOCAL
         #subprocess.run(["cmake", "-DCMAKE_EXPORT_COMPILE_COMMANDS=On", "."])
         #GITHUB
-        subprocess.run(["cmake", "-DCMAKE_EXPORT_COMPILE_COMMANDS=On", "/home/runner/work/HACKUDC2024-CODEE/HACKUDC2024-CODEE"])
+        subprocess.run(["cmake", "-DCMAKE_EXPORT_COMPILE_COMMANDS=On", "/home/runner/work/HACKUDC2024-CODEE/HACKUDC2024-CODEE/"])
         subprocess.run(["make", "-j8"])
 
         # EJECUCION LOCAL
