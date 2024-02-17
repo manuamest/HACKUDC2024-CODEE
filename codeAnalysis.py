@@ -336,7 +336,6 @@ def main():
         print("No se pudo ejecutar el análisis de Codee.")
 
 if __name__ == "__main__":
-<<<<<<< HEAD
     main()
 =======
     main()
