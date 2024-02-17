@@ -298,7 +298,10 @@ def run_codee_analysis():
         #os.chdir("./mbedtls-development")
         
         # Ejecutar los comandos previos
-        subprocess.run(["cmake", "-DCMAKE_EXPORT_COMPILE_COMMANDS=On", "."])
+        # LOCAL
+        #subprocess.run(["cmake", "-DCMAKE_EXPORT_COMPILE_COMMANDS=On", "."])
+        #GITHUB
+        subprocess.run(["cmake", "-DCMAKE_EXPORT_COMPILE_COMMANDS=On", "/home/runner/work/HACKUDC2024-CODEE/HACKUDC2024-CODEE/compile_commands.json"])
         subprocess.run(["make", "-j8"])
 
         # EJECUCION LOCAL
@@ -331,8 +334,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-#cd /home/manuamest/Descargas/mbedtls-development 
-#cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=On .
-#make -j8
-#/home/manuamest/Documentos/HACKATON/codee-2024.1.1-linux-x86_64/bin/pwreport --config compile_commands.json 
