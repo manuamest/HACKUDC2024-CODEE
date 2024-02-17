@@ -22,7 +22,7 @@ jobs:
           #username: chesterhomey@gmail.com
           #password: ${{ secrets.GMAIL_APP_PASSWORD }}
           subject: Reporte Codee
-          to: ${{ secrets.MAIL_CONNECTION }}$
-          from: ${{ secrets.MAIL_CONNECTION }}$
+          to: ${{ secrets.DEST_MAIL }}
+          from: ${{ secrets.MAIL_CONNECTION }}
           body: Reporte adjunto de codee
           attachments: report.html
