@@ -278,7 +278,7 @@ def generate_report(metrics):
     """
 
     # GUARDAR EN LOCAL
-    os.chdir("/home/manuamest/Documentos/HACKATON/HACKUDCCODEE")
+    #os.chdir("/home/manuamest/Documentos/HACKATON/HACKUDCCODEE")
 
     # GUARDAR EN GITHUB
     os.chdir("..")
