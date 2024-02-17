@@ -15,14 +15,14 @@ jobs:
       - name: Send mail
         uses: dawidd6/action-send-mail@v3
         with:
-          connection_url: { { secrets.MAIL_CONNECTION } }
+          connection_url: ${{ secrets.MAIL_CONNECTION }}
           #server_address: smtp.gmail.com
           #server_port: 465
           #secure: true
           #username: chesterhomey@gmail.com
           #password: ${{ secrets.GMAIL_APP_PASSWORD }}
           subject: Reporte Codee
-          to: { { secrets.MAIL_CONNECTION } }
-          from: { { secrets.MAIL_CONNECTION } }
+          to: ${{ secrets.MAIL_CONNECTION }}$
+          from: ${{ secrets.MAIL_CONNECTION }}$
           body: Reporte adjunto de codee
           attachments: report.html
