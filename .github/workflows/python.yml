@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2024 Manu Amestoy
+#
+# SPDX-License-Identifier: MIT
+
 name: Run Python Code Check
 
 on:
