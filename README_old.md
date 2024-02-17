@@ -5,12 +5,6 @@ Este script está diseñado para realizar análisis de código utilizando la her
 ## Dependencias
 
 El script depende de las siguientes bibliotecas de Python:
-- `subprocess`
-- `os`
-- `re`
-- `json`
-- `io`
-- `base64`
 - `matplotlib`
 - `pandas`
 - `seaborn`
