@@ -7,17 +7,20 @@ from parseCode import parse_codee_output
 from generateReport import generate_report
 
 def run_codee_analysis(path):
+
+    ruta_programa = "../codee-2024.1.1-linux-x86_64/bin/pwreport"
     try:
-        result = subprocess.run(['/home/manuamest/Descargas/codee-2024.1.1-HackUDC/codee-2024.1.1-linux-x86_64/bin/pwreport', path], capture_output=True, text=True, check=True)
-        # Combinar la salida estándar y de error en un solo string
-        output = result.stdout + result.stderr
+        result = subprocess.run([ruta_programa, path, "--json"], capture_output=True)
+        output = result.stdout
+        print(output)
         return output
     except subprocess.CalledProcessError as e:
         print(f"Error running Codee: {e}")
         return None
 
 def main():
-    path = input("Introduce la ruta del directorio o archivo.c a analizar: ")
+    path = "/home/manuamest/Descargas/SO-shell-master/P1/p2.c"
+    #path = input("Introduce la ruta del directorio o archivo.c a analizar: ")
     codee_output = run_codee_analysis(path)
     if codee_output:
         metrics = parse_codee_output(codee_output)
