@@ -35,7 +35,7 @@ def parse_codee_output(output):
                         value = int(value) if value.isdigit() else float(value.replace("€", ""))
                     results[filename][key] = value
                 elif key == "Analysis time":
-                    results[filename][key] = int(value.split()[0])
+                    results[filename][key] = float(value.split()[0])
                 elif key == "Effort":
                     results[filename][key] = int(re.search(r'\d+', value).group())
 
@@ -245,12 +245,6 @@ def generate_report(metrics):
         <div class="desktop-singin">
         <div class="body">
             <p class="titulo">HackUDC</p>
-            <div class="resumen-datos">
-            <div class="text-wrapper">Resumen de datos:</div>
-            <div class="datos-datos-datos">
-                {summary_html}
-            </div>
-            </div>
             <br>
             <div class="graficos">
             <div class="div">
@@ -266,8 +260,14 @@ def generate_report(metrics):
                 <img class="img" src="{img_str_3}" alt="Gráfico de Barras"/>
             </div>
             <div class="div">
-                <div class="text-wrapper">Mapa de calor:</div>
+                <div class="text-wrapper">Gráfico de complejidad:</div>
                 <img class="img" src="{img_str_4}" alt="Gráfico de Complejidad"/>
+            </div>
+            </div>
+            <div class="resumen-datos">
+            <div class="text-wrapper">Resumen de datos:</div>
+            <div class="datos-datos-datos">
+                {summary_html}
             </div>
             </div>
         </div>
@@ -277,16 +277,24 @@ def generate_report(metrics):
     </html>
     """
 
+    os.chdir("/home/manuamest/Documentos/HACKATON/HACKUDCCODEE")
     # Escribir el código HTML en un archivo
     with open("index.html", "w") as f:
         f.write(html)
 
-def run_codee_analysis(path):
-
-    ruta_programa = "../codee-2024.1.1-linux-x86_64/bin/pwreport"
+def run_codee_analysis():
     try:
-        command = ruta_programa + " " + path + " --json"
-        output = subprocess.check_output(command, shell=True)
+        # Cambiar al directorio donde se encuentra el proyecto mbedtls
+        os.chdir("/home/manuamest/Descargas/mbedtls-development")
+        
+        # Ejecutar los comandos previos
+        subprocess.run(["cmake", "-DCMAKE_EXPORT_COMPILE_COMMANDS=On", "."])
+        subprocess.run(["make", "-j8"])
+
+        # Ejecutar pwreport con el archivo JSON de configuración generado por cmake
+        # [ruta_programa, "--config", "compile_commands.json", "library/*.c","--json"]
+        ruta_programa = "/home/manuamest/Documentos/HACKATON/codee-2024.1.1-linux-x86_64/bin/pwreport"
+        output = subprocess.check_output("/home/manuamest/Documentos/HACKATON/codee-2024.1.1-linux-x86_64/bin/pwreport --config compile_commands.json library/*.c --json", shell=True)
         output_variable = output.decode("utf-8")
         return output_variable
     except subprocess.CalledProcessError as e:
@@ -294,9 +302,7 @@ def run_codee_analysis(path):
         return None
 
 def main():
-    path = "/home/manuamest/Descargas/SO-shell-master/P1/*.c"
-    #path = input("Introduce la ruta del directorio o archivo.c a analizar: ")
-    codee_output = run_codee_analysis(path)
+    codee_output = run_codee_analysis()
     if codee_output:
         metrics = [parse_codee_output(codee_output)]    
         if metrics:
@@ -309,3 +315,8 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+#cd /home/manuamest/Descargas/mbedtls-development 
+#cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=On .
+#make -j8
+#/home/manuamest/Documentos/HACKATON/codee-2024.1.1-linux-x86_64/bin/pwreport --config compile_commands.json 
