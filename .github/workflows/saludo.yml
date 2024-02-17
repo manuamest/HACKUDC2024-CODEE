@@ -18,7 +18,7 @@ jobs:
           #connection_url: ${{ secrets.MAIL_CONNECTION }}
           server_address: smtp-relay.brevo.com
           server_port: 587
-          secure: false
+          secure: true
           username: ${{ secrets.MAIL_MAIL }}
           password: ${{ secrets.MAIL_PASS }}
           subject: Reporte Codee
