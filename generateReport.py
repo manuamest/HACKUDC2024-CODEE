@@ -1,12 +1,12 @@
 import matplotlib.pyplot as plt
+from matplotlib.colors import LinearSegmentedColormap
 import seaborn as sns
 import io
 import base64
 
 def generate_report(metrics):
     # Crear el resumen de datos
-    summary_html = "<h2>Resumen de Datos</h2>"
-    summary_html += "<ul>"
+    summary_html = "<ul>"
     for file, data in metrics[0].items():
         if file not in ['Total', 'Checks']:
             summary_html += f"<li><b>{file}:</b> {data['# checks']} checks, Costo: {data['Cost']}, Líneas de Código: {data['Lines of code']}, Líneas Optimizables: {data['Optimizable lines']}</li>"
@@ -20,10 +20,26 @@ def generate_report(metrics):
     check_counts = [check[1] for check in checks_data]
 
     # Crear un gráfico circular
-    plt.figure(figsize=(12, 6))
-    plt.subplot(1, 2, 1)
-    plt.pie(check_counts, labels=check_types, autopct='%1.1f%%', startangle=140)
-    plt.title('Tipos de Checks Totales')
+    plt.figure(figsize=(12, 12))
+    plt.pie(check_counts, labels=check_types, autopct='%1.1f%%', startangle=140, textprops={'color': 'white'})
+    plt.title('Tipos de Checks Totales', color='white')
+
+    # Cambiar el color del fondo de los ejes
+    plt.gca().set_facecolor('#2E2E2E')  # Puedes especificar el color usando códigos hexadecimales, RGB, o nombres de colores
+
+    # Cambiar el color de los ejes (líneas que rodean el área de trazado)
+    plt.gca().spines['bottom'].set_color('white')
+    plt.gca().spines['top'].set_color('white')
+    plt.gca().spines['left'].set_color('white')
+    plt.gca().spines['right'].set_color('white')
+
+    # Cambiar el color de los números en los ejes
+    plt.tick_params(axis='x', colors='white')
+    plt.tick_params(axis='y', colors='white')
+
+    # Cambiar el color del fondo de la figura (el área fuera del gráfico)
+    fig = plt.gcf()
+    fig.patch.set_facecolor('#2E2E2E')  # Puedes especificar el color usando códigos hexadecimales, RGB, o nombres de colores
 
     # Convertir el gráfico en una imagen para incrustar en HTML
     buffer = io.BytesIO()
@@ -35,6 +51,10 @@ def generate_report(metrics):
     # Convertir la imagen en base64
     img_str_1 = "data:image/png;base64," + base64.b64encode(image_png).decode()
 
+    # Crear un mapa de colores personalizado--------------------------------------------------------------------------------------
+    colors = ['#FF47FF', '#9747FF']  # Morado a rosa
+    cmap = LinearSegmentedColormap.from_list('custom', colors)
+
     # Crear un mapa de calor para mostrar qué archivos generan más checks
     files = list(metrics[0].keys())
     files.remove('Total')
@@ -42,9 +62,25 @@ def generate_report(metrics):
     file_checks = [metrics[0][file]['# checks'] for file in files]
 
     plt.figure(figsize=(8, 6))
-    sns.heatmap([file_checks], annot=True, xticklabels=files, yticklabels=False, cmap="YlGnBu")
-    plt.title('Mapa de Calor de Checks por Archivo')
-    plt.xticks(rotation=45, ha='right')
+    sns.heatmap([file_checks], annot=True, xticklabels=files, yticklabels=False, cmap=cmap, annot_kws={"color": "white"})
+
+    # Cambiar el color del fondo de los ejes
+    plt.gca().set_facecolor('#2E2E2E')
+
+    # Cambiar el color de los ejes
+    for spine in plt.gca().spines.values():
+        spine.set_color('white')
+
+    # Cambiar el color de los números en los ejes
+    plt.tick_params(axis='x', colors='white')
+    plt.tick_params(axis='y', colors='white')
+
+    # Cambiar el color del fondo de la figura
+    fig = plt.gcf()
+    fig.patch.set_facecolor('#2E2E2E')
+
+    plt.title('Mapa de Calor de Checks por Archivo', color='white')
+    plt.xticks(rotation=45, ha='right', color='white')
 
     # Convertir el mapa de calor en una imagen para incrustar en HTML
     buffer = io.BytesIO()
@@ -53,7 +89,7 @@ def generate_report(metrics):
     image_png = buffer.getvalue()
     buffer.close()
 
-    # Convertir la imagen en base64
+    # Convertir la imagen en base64-----------------------------------------------------------------------------------------------
     img_str_2 = "data:image/png;base64," + base64.b64encode(image_png).decode()
 
     # Obtener los datos de checks y costos
@@ -66,9 +102,27 @@ def generate_report(metrics):
     # Crear un gráfico de barras
     plt.figure(figsize=(10, 6))
     sns.barplot(x=files, y=costs)
-    plt.title('Costo de Reparación por Archivo')
-    plt.xlabel('Archivo')
-    plt.ylabel('Costo')
+
+    # Cambiar el color del fondo de los ejes
+    plt.gca().set_facecolor('#2E2E2E')  # Puedes especificar el color usando códigos hexadecimales, RGB, o nombres de colores
+
+    # Cambiar el color de los ejes (líneas que rodean el área de trazado)
+    plt.gca().spines['bottom'].set_color('white')
+    plt.gca().spines['top'].set_color('white')
+    plt.gca().spines['left'].set_color('white')
+    plt.gca().spines['right'].set_color('white')
+
+    # Cambiar el color de los números en los ejes
+    plt.tick_params(axis='x', colors='white')
+    plt.tick_params(axis='y', colors='white')
+
+    # Cambiar el color del fondo de la figura (el área fuera del gráfico)
+    fig = plt.gcf()
+    fig.patch.set_facecolor('#2E2E2E')  # Puedes especificar el color usando códigos hexadecimales, RGB, o nombres de colores
+
+    plt.title('Costo de Reparación por Archivo', color='white')
+    plt.xlabel('Archivo', color='white')
+    plt.ylabel('Costo', color='white')
 
     # Convertir el gráfico en una imagen para incrustar en HTML
     buffer = io.BytesIO()
@@ -92,9 +146,27 @@ def generate_report(metrics):
     plt.figure(figsize=(10, 6))
     plt.plot(files, lines_of_code, marker='o', label='Líneas de Código')
     plt.plot(files, optimizable_lines, marker='o', label='Líneas Optimizables')
-    plt.title('Complejidad por Archivo')
-    plt.xlabel('Archivo')
-    plt.ylabel('Número de Líneas')
+
+    # Cambiar el color del fondo de los ejes
+    plt.gca().set_facecolor('#2E2E2E')  # Puedes especificar el color usando códigos hexadecimales, RGB, o nombres de colores
+
+    # Cambiar el color de los ejes (líneas que rodean el área de trazado)
+    plt.gca().spines['bottom'].set_color('white')
+    plt.gca().spines['top'].set_color('white')
+    plt.gca().spines['left'].set_color('white')
+    plt.gca().spines['right'].set_color('white')
+
+    # Cambiar el color de los números en los ejes
+    plt.tick_params(axis='x', colors='white')
+    plt.tick_params(axis='y', colors='white')
+
+    # Cambiar el color del fondo de la figura (el área fuera del gráfico)
+    fig = plt.gcf()
+    fig.patch.set_facecolor('#2E2E2E')  # Puedes especificar el color usando códigos hexadecimales, RGB, o nombres de colores
+
+    plt.title('Complejidad por Archivo', color='white')
+    plt.xlabel('Archivo', color='white')
+    plt.ylabel('Número de Líneas', color='white')
     plt.legend()
     plt.xticks(rotation=45, ha='right')
 
@@ -108,40 +180,55 @@ def generate_report(metrics):
     # Convertir la imagen en base64
     img_str_4 = "data:image/png;base64," + base64.b64encode(image_png).decode()
 
+
     # Generar el código HTML con los gráficos incrustados
     html = f"""
     <!DOCTYPE html>
     <html>
     <head>
-        <title>Gráfico Circular, Mapa de Calor y Gráfico de Barras</title>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="globals.css" />
+        <link rel="stylesheet" href="styleguide.css" />
+        <link rel="stylesheet" href="style.css" />
     </head>
     <body>
-        <h1>Gráfico Circular, Mapa de Calor y Gráfico de Barras</h1>
-        {summary_html}
-        <div style="display:flex; flex-direction: column; align-items: center;">
-            <div style="margin-bottom: 20px;">
-                <h2>Gráfico Circular</h2>
-                <img src="{img_str_1}" alt="Gráfico Circular">
+        <div class="desktop-singin">
+        <div class="body">
+            <p class="titulo">HackUDC</p>
+            <div class="resumen-datos">
+            <div class="text-wrapper">Resumen de datos:</div>
+            <div class="datos-datos-datos">
+                {summary_html}
             </div>
-            <div style="margin-bottom: 20px;">
-                <h2>Mapa de Calor</h2>
-                <img src="{img_str_2}" alt="Mapa de Calor">
             </div>
-            <div style="margin-bottom: 20px;">
-                <h2>Gráfico de Barras</h2>
-                <img src="{img_str_3}" alt="Gráfico de Barras">
+            <br>
+            <div class="graficos">
+            <div class="div">
+                <div class="text-wrapper">Gráfico circular:</div>
+                <img class="img" src="{img_str_1}" alt="Gráfico Circular">
             </div>
-            <div>
-                <h2>Gráfico de Complejidad</h2>
-                <img src="{img_str_4}" alt="Gráfico de Complejidad">
+            <div class="div">
+                <div class="text-wrapper">Mapa de calor:</div>
+                <img class="img" src="{img_str_2}" alt="Mapa de Calor"/>
             </div>
+            <div class="div">
+                <div class="text-wrapper">Gráfico de barras:</div>
+                <img class="img" src="{img_str_3}" alt="Gráfico de Barras"/>
+            </div>
+            <div class="div">
+                <div class="text-wrapper">Mapa de calor:</div>
+                <img class="img" src="{img_str_4}" alt="Gráfico de Complejidad"/>
+            </div>
+            </div>
+        </div>
+        <div class="barra-lateral"></div>
         </div>
     </body>
     </html>
     """
 
     # Escribir el código HTML en un archivo
-    with open("report.html", "w") as f:
+    with open("index.html", "w") as f:
         f.write(html)
 
 

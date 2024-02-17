@@ -1,0 +1,143 @@
+.desktop-singin {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  background-color: #1E1E1E;
+}
+
+.desktop-singin .body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 28px 44px 10px;
+  position: relative;
+  flex: 1;
+  align-self: stretch;
+  flex-grow: 1;
+}
+
+.desktop-singin .titulo {
+  position: relative;
+  align-self: stretch;
+  margin-top: -1px;
+  font-family: "Arial Rounded MT Bold-Regular", Helvetica;
+  font-weight: 400;
+  color: #ffffff; /* Blanco para contrastar con el fondo oscuro */
+  font-size: 48px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.desktop-singin .resumen-datos {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  padding: 1rem;
+  border-radius: 0.625rem;
+  background-color: #2E2E2E; /* Fondo ligeramente más claro para contraste */
+}
+
+.desktop-singin .text-wrapper {
+  position: relative;
+  align-self: stretch;
+  margin-top: -1px;
+  font-family: "Arial Rounded MT Bold-Regular", Helvetica;
+  font-weight: 400;
+  color: #9747FF;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.desktop-singin .datos-datos-datos {
+  position: relative;
+  width: fit-content;
+  font-family: "Arial", Helvetica;
+  font-weight: 400;
+  color: #ffffff; /* Blanco para contrastar con el fondo oscuro */
+  font-size: 24px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.desktop-singin .graficos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px 20px;
+  flex: 1;
+  align-self: stretch;
+  width: 100%;
+  flex-grow: 1;
+  align-items: flex-start;
+  position: relative;
+}
+
+.desktop-singin .div {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 0 0 auto;
+  align-items: flex-start;
+  position: relative;
+  background: #2E2E2E; /* Fondo ligeramente más claro para contraste */
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  width: 550px;
+  height: 550px;
+  padding: 1rem;
+  overflow: hidden;
+  border-radius: 0.625rem;
+}
+
+.desktop-singin .img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+}
+
+.desktop-singin .grafico-barras {
+  display: inline-flex;
+  flex-direction: column;
+  height: 414px;
+  align-items: flex-start;
+  gap: 10px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.desktop-singin .barra-lateral {
+  display: flex;
+  width: 100px;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 74px;
+  padding: 26px 74px;
+  position: relative;
+  align-self: stretch;
+  background-color: #9747FF;
+  border-radius: 150px 0px 0px 150px;
+  overflow: hidden;
+}
+
+.desktop-singin .logo {
+  position: relative;
+  width: 544px;
+  height: 65px;
+  margin-left: -239.5px;
+  margin-right: -74px;
+  background-color: #2E2E2E; /* Fondo ligeramente más claro para contraste */
+  transform: rotate(90deg);
+  box-shadow: inset 0px 4px 4px #00000040;
+  color: #ffffff; /* Blanco para contrastar con el fondo oscuro */
+}
