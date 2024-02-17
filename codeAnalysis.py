@@ -342,4 +342,3 @@ if __name__ == "__main__":
 #cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=On .
 #make -j8
 #/home/manuamest/Documentos/HACKATON/codee-2024.1.1-linux-x86_64/bin/pwreport --config compile_commands.json 
->>>>>>> refs/remotes/origin/main
