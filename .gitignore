@@ -1,5 +1,5 @@
 # Ignorar el archivo report.html
-report.html
+#report.html
 
 # Ignorar el directorio __pycache__
 __pycache__/

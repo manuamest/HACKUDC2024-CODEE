@@ -1,11 +1,28 @@
-name: Saludo
+name: Send Email
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  saludar:
+  send_email:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Imprimir saludo
-      run: echo "¡Hola, mundo!"
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Send mail
+        uses: dawidd6/action-send-mail@v3
+        with:
+          connection_url: smtps://chesterhomey@gmail.com:${{ secrets.GMAIL_APP_PASSWORD }}@smtp.gmail.com:465
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: chesterhomey@gmail.com
+          password: ${{ secrets.GMAIL_APP_PASSWORD }}
+          subject: Archivo adjunto desde GitHub
+          to: chesterhomey@gmail.com
+          from: "Tu Nombre <chesterhomey@gmail.com>"
+          body: Adjunto encontrarás el archivo que se encuentra en el repositorio.
+          attachments: report.html

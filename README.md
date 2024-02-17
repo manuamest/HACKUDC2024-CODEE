@@ -17,4 +17,4 @@ Asegúrate de tener instalado Python en tu sistema. Además, necesitarás tener 
 ## Ejemplo de uso
 
 ```bash
-python main.py
+python codeAnalysis.py
