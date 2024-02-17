@@ -15,20 +15,30 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: get-cmake
-        uses: lukka/get-cmake@v3.28.3
+      - name: download latest mbedtls and cmake
+        run: |
+          sudo apt install -y curl cmake
+          curl -L https://github.com/Mbed-TLS/mbedtls/archive/refs/tags/v3.5.2.tar.gz -o mbedtls.tar.gz
+          tar -xf mbedtls.tar.gz
+          mv mbedtls-3.5.2 mbedtls
+      - name: download codee
+        run: |
+          sudo apt install -y unzip
+          curl -L https://codee.com/wp-content/uploads/2024/02/codee-2024.1.1-HackUDC.zip -o codee.zip
+          unzip codee.zip
+          tar -xf codee-2024.1.1-HackUDC/codee-2024.1.1-linux-x86_64.tar.gz
+          mv codee-2024.1.1-HackUDC/codee.lic codee-2024.1.1-linux-x86_64/
+        # Temos no directorio raiz a carpeta codee-2024.1.1-linux-x86_64/ cargada coa licencia e a carpeta mbedtls co code
       - name: install make tools
         run: |
-          sudo apt install -y build-essential 
+          sudo apt install -y build-essential
       - name: Setup Python
         uses: actions/setup-python@v5.0.0
         with:
           python-version: 3.9
           check-latest: false
-          
+
       - name: Run Python
         run: |
           pip install -r requirements.txt
-          python3 codeAnalysis.py    
-        
-                 
+          python3 codeAnalysis.py
