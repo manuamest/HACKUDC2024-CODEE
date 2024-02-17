@@ -3,11 +3,15 @@ import seaborn as sns
 import io
 import base64
 
-
-#TODO: Añadir grafico de barras por coste de dinero de cada archivo
-#TODO: Añadir grafico de complejidad
-#TODO: Añadir tabla con los resultados
 def generate_report(metrics):
+    # Crear el resumen de datos
+    summary_html = "<h2>Resumen de Datos</h2>"
+    summary_html += "<ul>"
+    for file, data in metrics[0].items():
+        if file not in ['Total', 'Checks']:
+            summary_html += f"<li><b>{file}:</b> {data['# checks']} checks, Costo: {data['Cost']}, Líneas de Código: {data['Lines of code']}, Líneas Optimizables: {data['Optimizable lines']}</li>"
+    summary_html += "</ul>"
+
     # Obtener los datos de checks
     checks_data = metrics[0]['Checks']
 
@@ -52,23 +56,84 @@ def generate_report(metrics):
     # Convertir la imagen en base64
     img_str_2 = "data:image/png;base64," + base64.b64encode(image_png).decode()
 
+    # Obtener los datos de checks y costos
+    checks_data = metrics[0]
+
+    # Crear listas separadas para los nombres de archivos y sus costos
+    files = [file for file in checks_data.keys() if file != 'Total' and file != 'Checks']
+    costs = [checks_data[file]['Cost'] for file in files]
+
+    # Crear un gráfico de barras
+    plt.figure(figsize=(10, 6))
+    sns.barplot(x=files, y=costs)
+    plt.title('Costo de Reparación por Archivo')
+    plt.xlabel('Archivo')
+    plt.ylabel('Costo')
+
+    # Convertir el gráfico en una imagen para incrustar en HTML
+    buffer = io.BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    image_png = buffer.getvalue()
+    buffer.close()
+
+    # Convertir la imagen en base64
+    img_str_3 = "data:image/png;base64," + base64.b64encode(image_png).decode()
+
+    # Obtener los datos de checks y costos
+    checks_data = metrics[0]
+
+    # Crear listas separadas para los nombres de archivos y sus costos
+    files = [file for file in checks_data.keys() if file != 'Total' and file != 'Checks']
+    lines_of_code = [checks_data[file]['Lines of code'] for file in files]
+    optimizable_lines = [checks_data[file]['Optimizable lines'] for file in files]
+
+    # Crear un gráfico de líneas para la complejidad por archivo
+    plt.figure(figsize=(10, 6))
+    plt.plot(files, lines_of_code, marker='o', label='Líneas de Código')
+    plt.plot(files, optimizable_lines, marker='o', label='Líneas Optimizables')
+    plt.title('Complejidad por Archivo')
+    plt.xlabel('Archivo')
+    plt.ylabel('Número de Líneas')
+    plt.legend()
+    plt.xticks(rotation=45, ha='right')
+
+    # Convertir el gráfico en una imagen para incrustar en HTML
+    buffer = io.BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    image_png = buffer.getvalue()
+    buffer.close()
+
+    # Convertir la imagen en base64
+    img_str_4 = "data:image/png;base64," + base64.b64encode(image_png).decode()
+
     # Generar el código HTML con los gráficos incrustados
     html = f"""
     <!DOCTYPE html>
     <html>
     <head>
-        <title>Gráfico Circular y Mapa de Calor</title>
+        <title>Gráfico Circular, Mapa de Calor y Gráfico de Barras</title>
     </head>
     <body>
-        <h1>Gráfico Circular y Mapa de Calor</h1>
-        <div style="display:flex; justify-content:space-around;">
-            <div>
+        <h1>Gráfico Circular, Mapa de Calor y Gráfico de Barras</h1>
+        {summary_html}
+        <div style="display:flex; flex-direction: column; align-items: center;">
+            <div style="margin-bottom: 20px;">
                 <h2>Gráfico Circular</h2>
                 <img src="{img_str_1}" alt="Gráfico Circular">
             </div>
-            <div>
+            <div style="margin-bottom: 20px;">
                 <h2>Mapa de Calor</h2>
                 <img src="{img_str_2}" alt="Mapa de Calor">
+            </div>
+            <div style="margin-bottom: 20px;">
+                <h2>Gráfico de Barras</h2>
+                <img src="{img_str_3}" alt="Gráfico de Barras">
+            </div>
+            <div>
+                <h2>Gráfico de Complejidad</h2>
+                <img src="{img_str_4}" alt="Gráfico de Complejidad">
             </div>
         </div>
     </body>
@@ -79,16 +144,18 @@ def generate_report(metrics):
     with open("report.html", "w") as f:
         f.write(html)
 
+
 def main():
     # Ejemplo de uso
     metrics = [
-        {'commands.c': {'# checks': 13},
-        'list.c': {'# checks': 5},
-        'p2.c': {'# checks': 1}, 'Total': {'# checks': 19},
+        {'commands.c': {'# checks': 13, 'Cost': 1636.0, 'Lines of code': 491, 'Optimizable lines': 47}, 
+        'list.c': {'# checks': 5, 'Cost': 785.0, 'Lines of code': 83, 'Optimizable lines': 0}, 
+        'p2.c': {'# checks': 1, 'Cost': 261.0, 'Lines of code': 37, 'Optimizable lines': 0}, 
+        'Total': {'# checks': 19}, 
         'Checks': [('RMK015', 3), ('PWR054', 1), ('PWR024', 1), ('PWR018', 5), ('PWR001', 2), ('PWR029', 1), ('PWR012', 4), ('PWR016', 2)]}
     ]
-
     generate_report(metrics)
 
 if __name__ == "__main__":
     main()
+
