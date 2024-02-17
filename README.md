@@ -1,10 +1,19 @@
-# Información del Script
+<!--
+SPDX-FileCopyrightText: 2024 Manu Amestoy
+
+SPDX-License-Identifier: MIT
+-->
+
+# CodeeHACK
+
+## Información del Script
 
 Este script está diseñado para realizar análisis de código utilizando la herramienta Codee. Genera un informe en formato HTML que incluye gráficos y estadísticas sobre las métricas de calidad del código analizado.
 
 ## Dependencias
 
 El script depende de las siguientes bibliotecas de Python:
+
 - `matplotlib`
 - `pandas`
 - `seaborn`
@@ -14,6 +23,7 @@ Asegúrate de tener estas bibliotecas instaladas en tu entorno Python antes de e
 ## Capacidades
 
 El script tiene las siguientes capacidades:
+
 - Analiza archivos de código fuente utilizando la herramienta Codee.
 - Genera un informe HTML que incluye:
   - Un resumen de datos que muestra el número de checks, costo, líneas de código y líneas optimizables para cada archivo analizado.
@@ -31,3 +41,6 @@ Para ejecutar el script, simplemente ejecuta el archivo Python `codeAnalysis.py`
 
 ```bash
 python codeAnalysis.py
+```
+
+## Licencia
