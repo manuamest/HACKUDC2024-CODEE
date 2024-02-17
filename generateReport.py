@@ -3,6 +3,10 @@ import seaborn as sns
 import io
 import base64
 
+
+#TODO: Añadir grafico de barras por coste de dinero de cada archivo
+#TODO: Añadir grafico de complejidad
+#TODO: Añadir tabla con los resultados
 def generate_report(metrics):
     # Obtener los datos de checks
     checks_data = metrics[0]['Checks']

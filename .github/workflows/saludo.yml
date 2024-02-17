@@ -1,0 +1,11 @@
+name: Saludo
+
+on: [push]
+
+jobs:
+  saludar:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Imprimir saludo
+      run: echo "¡Hola, mundo!"

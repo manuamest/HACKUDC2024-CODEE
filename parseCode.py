@@ -30,6 +30,7 @@ def parse_codee_output(output):
     results["Checks"] = checkers
 
     return results
+    
 
 def main():
 
