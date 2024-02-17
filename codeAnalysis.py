@@ -337,8 +337,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-=======
-    main()
 
 #cd /home/manuamest/Descargas/mbedtls-development 
 #cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=On .
