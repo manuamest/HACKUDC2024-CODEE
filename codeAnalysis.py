@@ -2,26 +2,19 @@ import subprocess
 import os
 import re
 import matplotlib.pyplot as plt
-import seaborn as sns
 import pandas as pd
+from parseCode import parse_codee_output
+from generateReport import generate_report
 
 def run_codee_analysis(path):
     try:
-        result = subprocess.run(['/bin/pwreport', path], capture_output=True, text=True, check=True)
-        return result.stdout
+        result = subprocess.run(['/home/manuamest/Descargas/codee-2024.1.1-HackUDC/codee-2024.1.1-linux-x86_64/bin/pwreport', path], capture_output=True, text=True, check=True)
+        # Combinar la salida estándar y de error en un solo string
+        output = result.stdout + result.stderr
+        return output
     except subprocess.CalledProcessError as e:
         print(f"Error running Codee: {e}")
         return None
-
-def parse_codee_output(output):
-    # Aquí debes escribir el código para analizar el resultado de Codee
-    # y extraer las métricas relevantes
-    pass
-
-def generate_report(metrics):
-    # Aquí puedes utilizar bibliotecas como matplotlib o seaborn para generar gráficos
-    # y pandas para manipular datos tabulares y generar el HTML final del informe
-    pass
 
 def main():
     path = input("Introduce la ruta del directorio o archivo.c a analizar: ")
