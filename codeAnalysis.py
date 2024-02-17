@@ -312,10 +312,9 @@ def run_codee_analysis():
         # EJECUCION EN GITHUB
         #output = subprocess.check_output("./codee-2024.1.1-linux-x86_64/bin/pwreport --config compile_commands.json library/*.c --json", shell=True)
         #output = subprocess.check_output("./codee-2024.1.1-linux-x86_64/bin/pwreport --config compile_commands.json tests/*.c --json", shell=True)
-        os.chdir("..")
         output = subprocess.run("pwd")
         output = subprocess.run("ls")
-        output = subprocess.check_output("./codee-2024.1.1-linux-x86_64/bin/pwreport --accept-eula --config mbedtls/compile_commands.json mbedtls/programs/fuzz/*.c --json", shell=True)
+        output = subprocess.check_output("../codee-2024.1.1-linux-x86_64/bin/pwreport --accept-eula --config compile_commands.json programs/fuzz/*.c --json", shell=True)
 
         output_variable = output.decode("utf-8")
         return output_variable
