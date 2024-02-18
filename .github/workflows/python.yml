@@ -57,3 +57,18 @@ jobs:
           git add index.html
           git commit -m 'Automated index.html update'
           git push
+
+      - name: Send mail
+        uses: dawidd6/action-send-mail@v3
+        with:
+          #connection_url: ${{ secrets.MAIL_CONNECTION }}
+          server_address: smtp-relay.brevo.com
+          server_port: 587
+          secure: false
+          username: ${{ secrets.MAIL_MAIL }}
+          password: ${{ secrets.MAIL_PASS }}
+          subject: Reporte Codee
+          to: ${{ secrets.DEST_MAIL }}
+          from: ${{ secrets.MAIL_MAIL }}
+          body: Reporte adjunto de codee
+          attachments: index.html    
