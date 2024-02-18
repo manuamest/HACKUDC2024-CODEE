@@ -6,6 +6,13 @@ SPDX-License-Identifier: MIT
 
 # CodeeHACK
 
+### Resultados de un analisis de muchos archivos
+![BigAnalysis](https://github.com/manuamest/HACKUDC2024-CODEE/blob/bd3bd5047a04387a9e9c8f8703604a2adcb0dcf4/images/BigAnalysis.png)
+### Resultados de un analisis de pocos archivos
+![SmallAnalysis](https://github.com/manuamest/HACKUDC2024-CODEE/blob/bd3bd5047a04387a9e9c8f8703604a2adcb0dcf4/images/SmallAnalysis.png)
+### Correo con el informe del analisis
+![mail](https://github.com/manuamest/HACKUDC2024-CODEE/blob/bd3bd5047a04387a9e9c8f8703604a2adcb0dcf4/images/mail.png)
+
 ## Información del Script
 
 Este script está diseñado para realizar análisis de código utilizando la herramienta Codee. Genera un informe en formato HTML que incluye gráficos y estadísticas sobre las métricas de calidad del código analizado.
@@ -43,4 +50,3 @@ Para ejecutar el script, simplemente ejecuta el archivo Python `codeAnalysis.py`
 python codeAnalysis.py
 ```
 
-## Licencia
