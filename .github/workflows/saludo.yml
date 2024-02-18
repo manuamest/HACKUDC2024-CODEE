@@ -29,4 +29,4 @@ jobs:
           to: ${{ secrets.DEST_MAIL }}
           from: ${{ secrets.MAIL_MAIL }}
           body: Reporte adjunto de codee
-          attachments: report.html
+          attachments: index.html
