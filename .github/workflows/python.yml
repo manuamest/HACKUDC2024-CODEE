@@ -43,11 +43,17 @@ jobs:
         run: |
           pip install -r requirements.txt
           python3 codeAnalysis.py
+          
+      - name: Check for changes in index.html
+        id: check_changes
+        run: |
+          git diff --quiet index.html || echo "::set-output name=changed::true"
 
       - name: update git repo index.html
+        if: steps.check_changes.outputs.changed == 'true'
         run: |
           git config --global user.name 'infiniteduck'
           git config --global user.email '53666932+martinge17@users.noreply.github.com'
-          git add index.html --ignore-errors
+          git add index.html
           git commit -m 'Automated index.html update'
-          git push --ignore-errors
+          git push
